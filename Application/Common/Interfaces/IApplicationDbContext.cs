@@ -26,6 +26,7 @@ public interface IApplicationDbContext
     DbSet<ToDoItem> ToDoItems { get; set; }
 
     DbSet<City> Cities { get; set; }
+    DbSet<User> Users { get; set; }
 
     /// <summary>
     /// Gets database

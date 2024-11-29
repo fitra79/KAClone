@@ -31,6 +31,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<ToDoItem> ToDoItems { get; set; }
 
     public DbSet<City> Cities { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public void AsNoTracking()
     {
