@@ -11,6 +11,8 @@ using Infrastructure.Services.Cache;
 using Quartz;
 using Microsoft.Extensions.Configuration;
 using Infrastructure.Persistence.Interceptors;
+using Infrastructure.Persistence.Seeders;
+using Infrastructure.Persistence.SeederRunner;
 
 namespace Infrastructure;
 
@@ -36,6 +38,9 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddTransient<IDateTimeOffset, DateTimeOffsetService>();
+
+        services.AddScoped<CitySeeder>(); // Add this line
+        services.AddScoped<SeederRunner>(); // Ensure SeederRunner is also registered
 
         return services;
     }

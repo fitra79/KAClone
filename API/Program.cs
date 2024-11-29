@@ -2,6 +2,7 @@ using API;
 using Application;
 using Infrastructure;
 using Infrastructure.Persistence;
+using Infrastructure.Persistence.SeederRunner;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApiServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddScoped<SeederRunner>();
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
@@ -35,6 +37,15 @@ catch (Exception e)
 {
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(e, "Error during migration");
+}
+
+if (args.Contains("--seed"))
+{
+    using var seederScope = app.Services.CreateScope(); 
+    var seederRunner = seederScope.ServiceProvider.GetRequiredService<SeederRunner>();
+    await seederRunner.RunAsync();
+
+    return;
 }
 
 app.Run();
