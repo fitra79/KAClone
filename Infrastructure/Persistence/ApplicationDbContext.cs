@@ -30,7 +30,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<ToDoList> ToDoLists { get; set; }
     public DbSet<ToDoItem> ToDoItems { get; set; }
 
-    // public DbSet<ToDoItem> ToDoItems { get; set; }
+    public DbSet<City> Cities { get; set; }
 
     public void AsNoTracking()
     {
